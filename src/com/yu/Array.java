@@ -49,6 +49,9 @@ public class Array<E> {
         }
         size--;
         data[size] = null;
+        if (size == data.length / 4 && data.length / 2 != 0) {
+            resize(data.length / 2);
+        }
         return remove;
     }
 
@@ -61,25 +64,34 @@ public class Array<E> {
     }
 
     // 删除第一个值为e的元素
-    public void removeElement(E e){
+    public void removeElement(E e) {
         int i = indexOfFirst(e);
-        if(i != -1){
+        if (i != -1) {
             remove(i);
         }
     }
 
     public void add(int index, E e) {
-        if (size == data.length) {
-            throw new IllegalArgumentException("array is full.");
-        }
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("index is illegal.");
+        }
+        // 如果数组满了则自动扩容
+        if (size == data.length) {
+            resize(data.length * 2);
         }
         for (int i = size; i > index; i--) {
             data[i] = data[i - 1];
         }
         data[index] = e;
         size++;
+    }
+
+    private void resize(int newSize) {
+        E[] newData = (E[]) new Object[newSize];
+        for (int i = 0; i < size; i++) {
+            newData[i] = data[i];
+        }
+        data = newData;
     }
 
     public void addLast(E e) {
@@ -105,7 +117,7 @@ public class Array<E> {
     @Override
     public String toString() {
         System.out.println(String.format("Array: size=%d,capacity=%d", size, data.length));
-        StringJoiner sj = new StringJoiner(",", "[", "]");
+        StringJoiner sj = new StringJoiner(", ", "[", "]");
         for (int i = 0; i < size; i++) {
             sj.add(String.valueOf(data[i]));
         }

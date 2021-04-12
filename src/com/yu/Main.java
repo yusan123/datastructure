@@ -11,11 +11,12 @@ public class Main {
         sa.addLast("b");
         sa.addLast("c");
         sa.addLast("d");
+        sa.addLast("e");
+        System.out.println(sa);
+        sa.addLast("d");
+        System.out.println(sa);
+        sa.removeFirst();
         System.out.println(sa);
 
-        boolean c = sa.contains("c");
-        System.out.println(c);
-        sa.removeElement("b");
-        System.out.println(sa);
     }
 }
