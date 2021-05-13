@@ -44,8 +44,8 @@ public class Array<E> {
             throw new IllegalArgumentException("index is illegal.");
         }
         E remove = data[index];
-        for (int i = index; i < size; i++) {
-            data[i] = data[i + 1];
+        for (int i = index + 1; i < size; i++) {
+            data[i - 1] = data[i];
         }
         size--;
         data[size] = null;
@@ -93,6 +93,30 @@ public class Array<E> {
         }
         data = newData;
     }
+
+    public E getFirst() {
+        return get(0);
+    }
+
+
+    public E getLast() {
+        return get(size - 1);
+    }
+
+    public E get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("index is illegal.");
+        }
+        return data[index];
+    }
+
+    public void set(int index, E e) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("index is illegal.");
+        }
+        data[index] = e;
+    }
+
 
     public void addLast(E e) {
         add(size, e);
